@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies (virtualenv)
         run: |
           pip install virtualenv --break-system-packages
-          virtualenv venv
+          ~/.local/bin/virtualenv venv
           source venv/bin/activate
           pip install -r requirements.txt
           pip install mysql-connector-python
