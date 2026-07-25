@@ -48,29 +48,33 @@ jobs:
           sleep 3
           curl -f http://localhost:8000/health
 
-  deploy:
+deploy:
     runs-on: self-hosted
     needs: build
 
     env:
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_NAME: ${{ secrets.DB_NAME }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_NAME: ${{ secrets.DB_NAME }}
 
     steps:
-      - name: Checkout code
+        - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+        - name: Install dependencies (venv)
         run: |
-          pip install -r requirements.txt
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            pip install mysql-connector-python
 
-      - name: Restart service
+        - name: Restart service
         run: |
-          sudo systemctl restart student-portal
+            sudo systemctl restart student-portal
 
-      - name: Health check
+        - name: Health check
         run: |
-          sleep 3
-          curl -f http://localhost:8000/health
+            sleep 3
+            curl -f http://localhost:8000/health
