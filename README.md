@@ -532,3 +532,5 @@ cd ~/actions-runner
 1. קובץ `.github/workflows/ci.yml` עם כל ה-jobs
 2. Screenshot של GitHub Actions – כל ה-jobs ירוקים ✅
 3. Screenshot של הדפדפן עם `http://<VM-IP>/students`
+
+Updated after secrets change
